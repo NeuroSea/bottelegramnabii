@@ -50,7 +50,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("📋 Informații canal", callback_data="info")],
         [InlineKeyboardButton("❓ Întrebări frecvente", callback_data="faq")],
-        [InlineKeyboardButton("💬 Vorbește cu traderul", url=f"https://t.me/{YOUR_USERNAME}")],
+        [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -67,7 +67,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if query.data == "info":
         keyboard = [
-            [InlineKeyboardButton("💬 Vorbește cu traderul", url=f"https://t.me/{YOUR_USERNAME}")],
+            [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
             [InlineKeyboardButton("🔙 Înapoi", callback_data="back")],
         ]
         await query.edit_message_text(
@@ -82,7 +82,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             faq_text += f"*• {question}*\n{answer}\n\n"
 
         keyboard = [
-            [InlineKeyboardButton("💬 Vorbește cu traderul", url=f"https://t.me/{YOUR_USERNAME}")],
+            [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
             [InlineKeyboardButton("🔙 Înapoi", callback_data="back")],
         ]
         await query.edit_message_text(
@@ -95,7 +95,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard = [
             [InlineKeyboardButton("📋 Informații canal", callback_data="info")],
             [InlineKeyboardButton("❓ Întrebări frecvente", callback_data="faq")],
-            [InlineKeyboardButton("💬 Vorbește cu traderul", url=f"https://t.me/{YOUR_USERNAME}")],
+            [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
         ]
         await query.edit_message_text(
             "👋 *Bun venit!*\n\nSunt botul canalului de trading.\nAlege una din opțiunile de mai jos:",
@@ -106,7 +106,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def unknown_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("💬 Vorbește cu traderul", url=f"https://t.me/{YOUR_USERNAME}")],
+        [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
     ]
     await update.message.reply_text(
         "Pentru orice întrebare suplimentară, vorbește direct cu traderul! 👇",
