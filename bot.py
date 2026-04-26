@@ -2,62 +2,60 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
 
 # ============================
-# DETALII BOT
+# BOT DETAILS
 # ============================
 TOKEN = "8166122791:AAETIndnmyr5RohcdXrHWWxxPu92pJ5b8qY"
-YOUR_USERNAME = "neb1trades"
+GROUP_LINK = "https://t.me/+6P7Pj3dKKrJkNTZk"
 
 CHANNEL_INFO = """
-📊 *Canal de Trading — Prezentare*
+📊 *Trading Channel — Overview*
 
-Bun venit! Îți mulțumesc că ești interesat de canalul meu de trading. 🚀
-
-━━━━━━━━━━━━━━━━━━━━
-💼 *Cum funcționează?*
-━━━━━━━━━━━━━━━━━━━━
-• Semnale de trading clare și precise
-• Analize tehnice detaliate
-• Explicație completă pentru fiecare semnal
-• Comunicare directă cu traderul
+Welcome! Thank you for your interest in my trading channel. 🚀
 
 ━━━━━━━━━━━━━━━━━━━━
-💰 *Model de plată*
+💼 *How does it work?*
 ━━━━━━━━━━━━━━━━━━━━
-• *20% din profitul generat* — plătești doar când câștigi
-• Fără abonament fix lunar
-• Transparent și corect
+• Clear and precise trading signals
+• Detailed technical analysis
+• Full explanation for every signal
+• Direct communication with the trader
 
 ━━━━━━━━━━━━━━━━━━━━
-📈 *De ce să te alături?*
+💰 *Payment Model*
 ━━━━━━━━━━━━━━━━━━━━
-• Risc minim pentru tine
-• Interes comun — câștigăm împreună
-• Rezultate dovedite
+• *20% of generated profit* — you only pay when you win
+• No fixed monthly subscription
+• Transparent and fair
 
-Apasă butonul de mai jos pentru a vorbi direct cu mine! 👇
+━━━━━━━━━━━━━━━━━━━━
+📈 *Why join this channel?*
+━━━━━━━━━━━━━━━━━━━━
+• Minimal risk for you
+• Shared interest — we win together
+• Proven results
+
+Tap the button below to join the group! 👇
 """
 
 FAQ = {
-    "Ce piețe tranzacționați?": "Tranzacționăm *Forex, Crypto și Indici*. Fiecare semnal include Entry, TP și SL.",
-    "Cum se calculează cei 20%?": "La sfârșitul fiecărei luni calculăm profitul net generat din semnalele mele. Plătești 20% din acel profit.",
-    "Dacă nu fac profit, plătesc ceva?": "Fără profit = fără comision. Simplu și corect. 🤝",
-    "Cum primesc semnalele?": "Direct pe Telegram, în timp real, cu toate detaliile: pereche, direcție, Entry, TP1, TP2, SL.",
+    "What markets do you trade?": "We trade *Forex, Crypto and Indices*. Every signal includes Entry, TP and SL.",
+    "How is the 20% calculated?": "At the end of each month, we calculate the net profit generated from my signals. You pay 20% of that profit.",
+    "What if I don't make a profit?": "No profit = no commission. Simple and fair. 🤝",
+    "How do I receive the signals?": "Directly on Telegram, in real time, with full details: pair, direction, Entry, TP1, TP2, SL.",
 }
 # ============================
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("📋 Informații canal", callback_data="info")],
-        [InlineKeyboardButton("❓ Întrebări frecvente", callback_data="faq")],
-        [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
+        [InlineKeyboardButton("📋 Channel Info", callback_data="info")],
+        [InlineKeyboardButton("❓ FAQ", callback_data="faq")],
+        [InlineKeyboardButton("🚀 Join the Group", url=GROUP_LINK)],
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
     await update.message.reply_text(
-        "👋 *Bun venit!*\n\nSunt botul canalului de trading.\nAlege una din opțiunile de mai jos:",
+        "👋 *Welcome!*\n\nI'm the trading channel bot.\nChoose one of the options below:",
         parse_mode="Markdown",
-        reply_markup=reply_markup,
+        reply_markup=InlineKeyboardMarkup(keyboard),
     )
 
 
@@ -65,51 +63,44 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
+    join_button = [[InlineKeyboardButton("🚀 Join the Group", url=GROUP_LINK)],
+                   [InlineKeyboardButton("🔙 Back", callback_data="back")]]
+
     if query.data == "info":
-        keyboard = [
-            [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
-            [InlineKeyboardButton("🔙 Înapoi", callback_data="back")],
-        ]
         await query.edit_message_text(
             CHANNEL_INFO,
             parse_mode="Markdown",
-            reply_markup=InlineKeyboardMarkup(keyboard),
+            reply_markup=InlineKeyboardMarkup(join_button),
         )
 
     elif query.data == "faq":
-        faq_text = "❓ *Întrebări frecvente*\n\n"
+        faq_text = "❓ *Frequently Asked Questions*\n\n"
         for question, answer in FAQ.items():
             faq_text += f"*• {question}*\n{answer}\n\n"
 
-        keyboard = [
-            [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
-            [InlineKeyboardButton("🔙 Înapoi", callback_data="back")],
-        ]
         await query.edit_message_text(
             faq_text,
             parse_mode="Markdown",
-            reply_markup=InlineKeyboardMarkup(keyboard),
+            reply_markup=InlineKeyboardMarkup(join_button),
         )
 
     elif query.data == "back":
         keyboard = [
-            [InlineKeyboardButton("📋 Informații canal", callback_data="info")],
-            [InlineKeyboardButton("❓ Întrebări frecvente", callback_data="faq")],
-            [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
+            [InlineKeyboardButton("📋 Channel Info", callback_data="info")],
+            [InlineKeyboardButton("❓ FAQ", callback_data="faq")],
+            [InlineKeyboardButton("🚀 Join the Group", url=GROUP_LINK)],
         ]
         await query.edit_message_text(
-            "👋 *Bun venit!*\n\nSunt botul canalului de trading.\nAlege una din opțiunile de mai jos:",
+            "👋 *Welcome!*\n\nI'm the trading channel bot.\nChoose one of the options below:",
             parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(keyboard),
         )
 
 
 async def unknown_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton("🚀 Intră în grup", url="https://t.me/+6P7Pj3dKKrJkNTZk")],
-    ]
+    keyboard = [[InlineKeyboardButton("🚀 Join the Group", url=GROUP_LINK)]]
     await update.message.reply_text(
-        "Pentru orice întrebare suplimentară, vorbește direct cu traderul! 👇",
+        "For any additional questions, join the group directly! 👇",
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
 
@@ -119,5 +110,5 @@ app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(button_handler))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_message))
 
-print("✅ Botul rulează...")
+print("✅ Bot is running...")
 app.run_polling()
