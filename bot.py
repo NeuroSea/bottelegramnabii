@@ -4,7 +4,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 # ============================
 # BOT DETAILS
 # ============================
-TOKEN = "8166122791:AAETIndnmyr5RohcdXrHWWxxPu92pJ5b8qY"
+TOKEN = "8736285804:AAHhDldQuXp21-a2ZwXgoot2wXdFBwYKmPg"
 GROUP_LINK = "https://t.me/+6P7Pj3dKKrJkNTZk"
 
 CHANNEL_INFO = """
